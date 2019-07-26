@@ -1,0 +1,10 @@
+**/obj/
+**/bin/
+**/.vs/
+ProductService.Api/obj/Debug/netcoreapp3.0/project.razor.json
+ProductService.Api/bin/Debug/netcoreapp3.0/ProductService.Api.dll
+ProductService.Api/bin/Debug/netcoreapp3.0/ProductService.Api.pdb
+ProductService.Api/obj/Debug/netcoreapp3.0/ProductService.Api.dll
+ProductService.Api/obj/Debug/netcoreapp3.0/ProductService.Api.pdb
+ProductService.Api/obj/Debug/netcoreapp3.0/ProductService.Api.assets.cache
+ProductService.Api/obj/Debug/netcoreapp3.0/ProductService.Api.csprojAssemblyReference.cache
