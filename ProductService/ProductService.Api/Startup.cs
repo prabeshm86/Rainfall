@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using  ProductService.Api.Services;
 
 namespace ProductService.Api
 {
@@ -28,6 +29,8 @@ namespace ProductService.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            	
+            services.AddScoped<IProductService, Services.ProductService>();
             //services.AddDbContext<ProductContext>(o => o.UseSQL(Configuration.GetConnectionString("ProductDB")));
            // var connection = @"Server=(localdb)\mssqllocaldb;Database=ProductDb;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<Infrastructure.ProductContext>

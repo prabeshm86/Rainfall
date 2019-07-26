@@ -9,6 +9,7 @@ using ProductService.Api.Infrastructure;
 using ProductService.Api.Model;
 using Microsoft.EntityFrameworkCore;
 using ProductService.Api.Infrastructure.Exceptions;
+using ProductService.Api.Services;
 
 namespace ProductService.Api.Controllers
 {
@@ -17,26 +18,26 @@ namespace ProductService.Api.Controllers
     public class ProductController : ControllerBase
     {
         private readonly ILogger<ProductController> _logger;
-        private readonly ProductContext _productContext;
+        private readonly IProductService _service;
 
-        public ProductController(ILogger<ProductController> logger, ProductContext context)
+        public ProductController(ILogger<ProductController> logger, IProductService service)
         {
             _logger = logger;
-            _productContext = context;
+            _service = service;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> Get()
         {
             _logger.LogInformation("Get Products");
-            return Ok(await _productContext.Products.ToListAsync());
+            return Ok(await _service.GetProducts());
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<Product>> Get(int id)
         {
-            var product = await _productContext.Products.FirstOrDefaultAsync(i => i.Id == id);
+            var product = await _service.GetProduct(id);
             if (product == null)
             {
                 throw new ProductDomainException("Id not found");
@@ -55,42 +56,40 @@ namespace ProductService.Api.Controllers
                 ProductName = product.ProductName
             };
 
-            _productContext.Products.Add(item);
-            await _productContext.SaveChangesAsync();
+            var id = await _service.AddProduct(product);
 
-            return CreatedAtAction(nameof(AddProduct), new { Id = item.Id });
+            return CreatedAtAction(nameof(AddProduct), new { Id = id });
         }
 
         [HttpPut]
         public async Task<ActionResult> UpdateProduct([FromBody]Product product)
         {
-            var item = await _productContext.Products.FirstOrDefaultAsync(i => i.Id == product.Id);
+            var item = await _service.GetProduct(product.Id);
             if (item == null)
             {
-                throw new ProductDomainException("Product Not found");
+                throw new ProductDomainException("Product not found");
             }
             else
             {
-                item.ProductName = product.ProductName;
-                await _productContext.SaveChangesAsync();
-
-                return CreatedAtAction(nameof(UpdateProduct), new { id = item.Id });
+                var id = await _service.UpdateProduct(product);
+                return CreatedAtAction(nameof(UpdateProduct), new { id = id });
             }
+
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<ActionResult> DeleteProduct(int id)
+        public ActionResult DeleteProduct(int id)
         {
-            var item = await _productContext.Products.FirstOrDefaultAsync(i => i.Id == id);
+           // throw new Exception("Naughty!");
+            var item = _service.GetProduct(id).Result;
             if (item == null)
             {
-                throw new ProductDomainException("Product Not found");
+                throw new ProductDomainException("Product not found");
             }
             else
             {
-                _productContext.Remove(item);
-                await _productContext.SaveChangesAsync();
+                _service.DeleteProduct(item);
                 return NoContent();
             }
         }
