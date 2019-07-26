@@ -1,0 +1,25 @@
+﻿<Properties StartupConfiguration="{A8AE40EB-4E99-4B41-8EC4-AECD4C393E60}|Default">
+  <MonoDevelop.Ide.ItemProperties.ProductService.Api PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Startup.cs">
+    <Files>
+      <File FileName="Controllers/ProductController.cs" Line="24" Column="1" />
+      <File FileName="../../../../../usr/local/share/dotnet/sdk/3.0.100-preview7-012821/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" Line="239" Column="55" />
+      <File FileName="Startup.cs" Line="37" Column="47" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Product.Api" expanded="True" selected="True">
+            <Node name="ProductService.Api" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
