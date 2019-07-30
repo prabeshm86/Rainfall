@@ -20,6 +20,7 @@ namespace ProductService.Api.Services
 
         public async Task<List<Product>> GetProducts()
         {
+            
             return await _context.Products.ToListAsync();
         }
 

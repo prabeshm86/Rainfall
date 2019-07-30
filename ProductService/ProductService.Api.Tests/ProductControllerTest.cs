@@ -1,3 +1,4 @@
+using System.Reflection;
 using System;
 using Xunit;
 using ProductService.Api.Services;
@@ -24,13 +25,14 @@ namespace ProductService.Api.Tests
         }
         [Fact]
         public void Get_WhenCalled_ReturnsOkResult()
-    {
-        // Act
-        var okResult = _controller.Get();
- 
-        // Assert
-        Assert.IsType<ActionResult<IEnumerable<Product>>>(okResult.Result);
-    }
+        {
+            // Act
+            var okResult = _controller.Get();
+
+            // Assert
+            Assert.IsType<ActionResult<IEnumerable<Product>>>(okResult.Result);
+            
+        }
 
     }
 }
