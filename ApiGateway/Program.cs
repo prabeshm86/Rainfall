@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.IO;
 
 namespace ApiGateway
 {
@@ -22,8 +25,7 @@ namespace ApiGateway
 
             builder.ConfigureServices(s => s.AddSingleton(builder))
                     .ConfigureAppConfiguration(
-                          ic => ic.AddJsonFile(Path.Combine("configuration",
-                                                            "configuration.json")))
+                          ic => ic.AddJsonFile(Path.Combine("configuration.json")))
                     .UseStartup<Startup>();
             var host = builder.Build();
             return host;

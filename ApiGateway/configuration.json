@@ -1,15 +1,15 @@
 {
     "ReRoutes": [
       {
-        "DownstreamPathTemplate": "/api/{version}/{everything}",
+        "DownstreamPathTemplate": "/api/{everything}",
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
           {
-            "Host": "product.api",
+            "Host": "productservice.api",
             "Port": 80
           }
         ],
-        "UpstreamPathTemplate": "/api/{version}/c/{everything}",
+        "UpstreamPathTemplate": "/api/p1/{everything}",
         "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
       },
       {
