@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.IO;
+using System.IO; 
 
 namespace ApiGateway
 {
@@ -16,6 +16,7 @@ namespace ApiGateway
     {
         public static void Main(string[] args)
         {
+            
             BuildWebHost(args).Run();
         }
 

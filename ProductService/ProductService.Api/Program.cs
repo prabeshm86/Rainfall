@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ProductService.Api.Infrastructure;
+using ProductService.Api.Infrastructure.Extensions;
 
 namespace ProductService.Api
 {
@@ -13,7 +15,8 @@ namespace ProductService.Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+
+            CreateHostBuilder(args).Build().CreateDatabase<ProductContext>().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

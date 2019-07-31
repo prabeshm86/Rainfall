@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ProductService.Api.Model;
 using System.Collections.Generic;
 //using Product = ProductService.Api.Model;
+//using ProductService.Api.Infrastructure;
 
 namespace ProductService.Api.Infrastructure
 {
