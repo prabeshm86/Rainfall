@@ -47,7 +47,7 @@ namespace ApiGateway
                     x.RequireHttpsMetadata = false;
                     x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
                     {
-                        ValidAudiences = new[] { "orders", "basket", "locations", "marketing", "mobileshoppingagg", "webshoppingagg" }
+                        ValidAudiences = new[] { "product", "basket", "locations", "marketing", "mobileshoppingagg", "webshoppingagg" }
                     };
                     x.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents()
                     {

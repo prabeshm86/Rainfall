@@ -3,38 +3,43 @@ using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
+using System.Text;
 
 namespace LoginService.Api.Models
 {
     public class TokenManager
     {
 
-        private static string Secret = "XCAP05H6LoKvbRRa/QkqLNMI7cOHguaRyHzyg7n5qEkGjQmtBhz4SzYh4Fqwjyi3KJHlSXKPwVu2+bXr6CtpgQ==";
+        //private static string Secret = "XCAP05H6LoKvbRRa/QkqLNMI7cOHguaRyHzyg7n5qEkGjQmtBhz4SzYh4Fqwjyi3KJHlSXKPwVu2+bXr6CtpgQ==";
 
         //private static string Secret = "MyBigLongSecret";
 
         //HMACSHA256 hmac = new HMACSHA256();
         //string key = Convert.ToBase64String(hmac.Key);
 
-        public static string GenerateToken(string username)
+        public static string GenerateToken(string username, IConfiguration configuration)
         {
-            byte[] key = Convert.FromBase64String(Secret);
-            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
-            SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
+            //generate token
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(configuration.GetSection("AppSettings:Token").Value);
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] {
-                      new Claim(ClaimTypes.Name, username)}),
-                Expires = DateTime.UtcNow.AddMinutes(30),
-                SigningCredentials = new SigningCredentials(securityKey,
-                SecurityAlgorithms.HmacSha256Signature)
+                Subject = new ClaimsIdentity(new Claim[]{
+                    new Claim(ClaimTypes.NameIdentifier,username),
+                    new Claim(ClaimTypes.Name, username)
+                }),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
             };
 
-            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-            JwtSecurityToken token = handler.CreateJwtSecurityToken(descriptor);
-            return handler.WriteToken(token);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return tokenString;
         }
 
-        public static ClaimsPrincipal GetPrincipal(string token)
+        public static ClaimsPrincipal GetPrincipal(string token, IConfiguration config)
         {
             try
             {
@@ -42,7 +47,7 @@ namespace LoginService.Api.Models
                 JwtSecurityToken jwtToken = (JwtSecurityToken)tokenHandler.ReadToken(token);
                 if (jwtToken == null)
                     return null;
-                byte[] key = Convert.FromBase64String(Secret);
+                byte[] key = Convert.FromBase64String(config.GetSection("AppSettings:Token").Value);
                 TokenValidationParameters parameters = new TokenValidationParameters()
                 {
                     RequireExpirationTime = true,
@@ -61,10 +66,10 @@ namespace LoginService.Api.Models
             }
         }
 
-        public static string ValidateToken(string token)
+        public static string ValidateToken(string token, IConfiguration config)
         {
             string username = null;
-            ClaimsPrincipal principal = GetPrincipal(token);
+            ClaimsPrincipal principal = GetPrincipal(token, config);
             if (principal == null)
                 return null;
             ClaimsIdentity identity = null;

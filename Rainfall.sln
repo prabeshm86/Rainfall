@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\Ap
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BB64EA07-20BF-439D-9407-58C55E842090}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{9AAC7504-A912-4F7C-BEE8-507D69581ABC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginService.Api", "LoginService.Api\LoginService.Api.csproj", "{942F2EBE-E523-4E46-84AA-0BB7B461878B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{BB64EA07-20BF-439D-9407-58C55E842090}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB64EA07-20BF-439D-9407-58C55E842090}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB64EA07-20BF-439D-9407-58C55E842090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{942F2EBE-E523-4E46-84AA-0BB7B461878B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942F2EBE-E523-4E46-84AA-0BB7B461878B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942F2EBE-E523-4E46-84AA-0BB7B461878B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942F2EBE-E523-4E46-84AA-0BB7B461878B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -52,5 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B193E812-51DC-4C36-8CA3-5D1489ECC721} = {DCE4612D-B0A0-4AA4-AA5D-3E6E67127101}
 		{5393DA9F-8D29-41E2-9147-57B8AAA68B09} = {73779480-9297-4E2C-BB41-E4CC7C7F0335}
+		{A8AE40EB-4E99-4B41-8EC4-AECD4C393E60} = {9AAC7504-A912-4F7C-BEE8-507D69581ABC}
+		{942F2EBE-E523-4E46-84AA-0BB7B461878B} = {9AAC7504-A912-4F7C-BEE8-507D69581ABC}
 	EndGlobalSection
 EndGlobal
