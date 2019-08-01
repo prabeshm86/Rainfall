@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace ProductService.Api.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("api/v1/[controller]")]
     public class ProductController : ControllerBase
     {
