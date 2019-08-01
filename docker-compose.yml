@@ -26,3 +26,10 @@ services:
     expose:  
       - 1433  
 
+
+  mobileapp:
+    image: ${DOCKER_REGISTRY-}mobileapp
+    build:
+      context: .
+      dockerfile: Apps/MobileApp/Dockerfile
+

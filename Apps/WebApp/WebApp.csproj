@@ -9,4 +9,7 @@
   <ItemGroup>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="MobileApp\appsettings.json" />
+  </ItemGroup>
 </Project>
