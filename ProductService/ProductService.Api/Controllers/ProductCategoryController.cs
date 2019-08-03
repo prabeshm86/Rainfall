@@ -2,45 +2,59 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using ProductService.Api.Infrastructure;
+using ProductService.Api.Model;
+using ProductService.Api.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ProductService.Api.Controllers
 {
-    [Route("api/[controller]")]
-    public class ValuesController : Controller
+    [Route("api/v1/[controller]")]
+    public class ProductCategoryController : Controller
     {
+        private readonly ILogger<ProductController> _logger;
+        private readonly ProductContext _context;
+
+        public ProductCategoryController(ILogger<ProductController> logger, ProductContext context)
+        {
+            _logger = logger;
+            _context = context;
+        }
+
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok();
+            //return Ok(await _context.ProductCategories.ToListAsync());
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        public async Task<ActionResult> Get(int id)
         {
-            return "value";
+            return Ok();
+           // return Ok(await _context.ProductCategories.FirstOrDefaultAsync(i => i.Id == id));
         }
 
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        [Authorize(Roles = "Admin")]
+        public ActionResult AddCategory([FromBody]ProductCategory productCategory)
         {
-        }
+            var category = new ProductCategory
+            {
+                Name = productCategory.Name,
+                Description = productCategory.Description,
+            };
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+           // _context.ProductCategories.Add(category);
+           // _context.SaveChanges();
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return CreatedAtAction(nameof(AddCategory), new { id = category.Id });
         }
     }
 }

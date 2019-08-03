@@ -20,6 +20,12 @@ namespace ProductService.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("CategoryId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ImageUrl");
+
                     b.Property<string>("ProductName");
 
                     b.HasKey("Id");
@@ -29,8 +35,9 @@ namespace ProductService.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
-                            ProductName = "Product A"
+                            Id = 1,
+                            CategoryId = 1,
+                            ProductName = "Iphone X"
                         });
                 });
 #pragma warning restore 612, 618

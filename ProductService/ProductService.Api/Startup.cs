@@ -29,10 +29,22 @@ namespace ProductService.Api
 
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "AllowAllOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
+             services.AddCors(options =>
+                {
+                    options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();;
+                    });
+                });
 
             services.AddControllers();
 
@@ -85,6 +97,8 @@ namespace ProductService.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+             app.UseCors("AllowAllOrigins");
 
             app.UseAuthentication();
 

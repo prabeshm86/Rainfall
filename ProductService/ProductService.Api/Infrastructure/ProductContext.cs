@@ -14,7 +14,7 @@ namespace ProductService.Api.Infrastructure
 
         public ProductContext()
         {
-            
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,23 +22,31 @@ namespace ProductService.Api.Infrastructure
             optionsBuilder.UseSqlite("Data Source=products.db");
         }
 
-        public DbSet<Model.Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
+//public DbSet<ProductCategory> ProductCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Model.Product>().HasData(
+            modelBuilder.Entity<Product>().HasData(
                 new Model.Product()
                 {
                     Id = 1,
-                    ProductName = "Product A"
+                    ProductName = "Iphone X",
+                    CategoryId = 1
                 }
             );
+
+            // modelBuilder.Entity<ProductCategory>().HasData(
+            //     new ProductCategory { Id = 1, Name = "Mobile Phone" },
+            //     new ProductCategory { Id = 2, Name = "Tablets" },
+            //     new ProductCategory { Id = 3, Name = "Laptops" }
+            // );
 
             modelBuilder.Entity<Product>()
                 .Property(e => e.Id)
                 .IsRequired()
                 .ValueGeneratedOnAdd();
-        }       
+        }
 
 
 

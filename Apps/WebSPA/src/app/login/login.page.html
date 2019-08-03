@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login to Rainfall</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form #form="ngForm" (ngSubmit)="login(form)">
+    <ion-input name="username" placeholder="Username" clearInput ngModel required></ion-input>
+    <ion-input name ="password" placeholder="Password" type="password" ngModel required></ion-input>
+  <ion-button color="primary" type="submit" expand="block"[disabled]="form.invalid">Login</ion-button>
+  </form>
+
+</ion-content>

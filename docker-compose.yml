@@ -24,12 +24,4 @@ services:
     ports:  
       - '1433:1433'  
     expose:  
-      - 1433  
-
-
-  mobileapp:
-    image: ${DOCKER_REGISTRY-}mobileapp
-    build:
-      context: .
-      dockerfile: Apps/MobileApp/Dockerfile
-
+      - 1433

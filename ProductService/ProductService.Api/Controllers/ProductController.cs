@@ -16,6 +16,7 @@ namespace ProductService.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly ILogger<ProductController> _logger;

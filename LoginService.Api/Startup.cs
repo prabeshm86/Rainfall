@@ -25,15 +25,30 @@ namespace LoginService.Api
 
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "AllowAllOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+                {
+                    options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();;
+                    });
+                });
+                
             services.AddControllers();
+            
 
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options => {
+            .AddJwtBearer(options =>
+            {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -53,8 +68,9 @@ namespace LoginService.Api
             }
             else
             {
-               // app.UseHsts();
+                // app.UseHsts();
             }
+            app.UseCors("AllowAllOrigins");
 
             app.UseHttpsRedirection();
 
@@ -63,6 +79,8 @@ namespace LoginService.Api
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {
